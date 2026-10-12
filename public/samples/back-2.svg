@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <title>Sample illustration</title>
+  <defs>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="22"/>
+    </filter>
+    <filter id="mark" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.16"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="800" height="1000" fill="#d9bba4"/>
+  <g filter="url(#soft)">
+    <ellipse cx="320" cy="380" rx="240" ry="200" fill="#ead2be"/>
+    <ellipse cx="520" cy="680" rx="220" ry="180" fill="#c8a68e"/>
+  </g>
+  <g filter="url(#mark)" opacity="0.78">
+    <ellipse cx="560" cy="390" rx="26" ry="24" fill="#c47b68"/>
+    <ellipse cx="564" cy="392" rx="12.5" ry="11.0" fill="#8d5148"/>
+    
+  </g>
+  <rect width="800" height="1000" filter="url(#grain)"/>
+  <rect x="18" y="18" width="764" height="964" fill="none" stroke="#5c534a" stroke-opacity="0.28"/>
+  <text x="36" y="948" fill="#4e4942" font-family="Georgia, serif" font-size="28">Sample illustration</text>
+</svg>
