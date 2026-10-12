@@ -1,0 +1,122 @@
+{
+  "dataset": {
+    "name": "CellScope synthetic fluorescence nuclei",
+    "version": "1",
+    "split": "validation",
+    "imageCount": 6,
+    "seed": 7,
+    "description": "Six synthetic 384\u00d7288 fluorescence fields generated with seed 7. Each field includes one deliberately touching pair. Ground-truth masks are the 2\u03c3 ellipses of the Gaussians used to paint the nuclei (about 14% of each peak), not a hand tracing of a laboratory image. This split does not include the workspace sample image."
+  },
+  "model": {
+    "name": "StarDist 2D_versatile_fluo",
+    "version": "0.9.2",
+    "domain": "2D fluorescence microscopy of a nuclear marker",
+    "weights": "StarDist pretrained weights 2D_versatile_fluo",
+    "probabilityThreshold": 0.479071463157368,
+    "nmsThreshold": 0.3,
+    "normalization": "csbdeep.utils.normalize percentiles 3 and 99.8, matching the StarDist pretrained-model example"
+  },
+  "matching": {
+    "method": "greedy one-to-one",
+    "criterion": "mask IoU",
+    "threshold": 0.5,
+    "description": "Each predicted nucleus is paired with at most one ground-truth nucleus, and the other way around. Pairs are accepted in descending mask IoU, and only when IoU is at least 0.5. The masks are the model's label image and the 2\u03c3 ellipses used to draw the synthetic nuclei."
+  },
+  "detection": {
+    "precision": 0.8608,
+    "recall": 0.7556,
+    "f1": 0.8047,
+    "truePositives": 68,
+    "falsePositives": 11,
+    "falseNegatives": 22
+  },
+  "counting": {
+    "meanAbsoluteError": 1.8333,
+    "description": "Mean absolute difference between the ground-truth count and the predicted count on each image. A small counting error does not mean each nucleus was found: misses and extra detections can cancel.",
+    "perImage": [
+      {
+        "id": "val-01",
+        "groundTruth": 17,
+        "predicted": 16,
+        "absoluteError": 1,
+        "truePositives": 15,
+        "falsePositives": 1,
+        "falseNegatives": 2
+      },
+      {
+        "id": "val-02",
+        "groundTruth": 14,
+        "predicted": 12,
+        "absoluteError": 2,
+        "truePositives": 11,
+        "falsePositives": 1,
+        "falseNegatives": 3
+      },
+      {
+        "id": "val-03",
+        "groundTruth": 15,
+        "predicted": 14,
+        "absoluteError": 1,
+        "truePositives": 11,
+        "falsePositives": 3,
+        "falseNegatives": 4
+      },
+      {
+        "id": "val-04",
+        "groundTruth": 15,
+        "predicted": 14,
+        "absoluteError": 1,
+        "truePositives": 14,
+        "falsePositives": 0,
+        "falseNegatives": 1
+      },
+      {
+        "id": "val-05",
+        "groundTruth": 15,
+        "predicted": 13,
+        "absoluteError": 2,
+        "truePositives": 10,
+        "falsePositives": 3,
+        "falseNegatives": 5
+      },
+      {
+        "id": "val-06",
+        "groundTruth": 14,
+        "predicted": 10,
+        "absoluteError": 4,
+        "truePositives": 7,
+        "falsePositives": 3,
+        "falseNegatives": 7
+      }
+    ]
+  },
+  "examples": [
+    {
+      "id": "val-01",
+      "groundTruthCount": 17,
+      "predictedCount": 16,
+      "inputUrl": "/api/evaluation/examples/val-01/input",
+      "groundTruthUrl": "/api/evaluation/examples/val-01/ground-truth",
+      "predictionUrl": "/api/evaluation/examples/val-01/prediction"
+    },
+    {
+      "id": "val-02",
+      "groundTruthCount": 14,
+      "predictedCount": 12,
+      "inputUrl": "/api/evaluation/examples/val-02/input",
+      "groundTruthUrl": "/api/evaluation/examples/val-02/ground-truth",
+      "predictionUrl": "/api/evaluation/examples/val-02/prediction"
+    },
+    {
+      "id": "val-03",
+      "groundTruthCount": 15,
+      "predictedCount": 14,
+      "inputUrl": "/api/evaluation/examples/val-03/input",
+      "groundTruthUrl": "/api/evaluation/examples/val-03/ground-truth",
+      "predictionUrl": "/api/evaluation/examples/val-03/prediction"
+    }
+  ],
+  "generatedAt": "2026-10-12T18:24:11.423823+00:00",
+  "runtimeSeconds": 4.4,
+  "limitation": "These figures measure the pretrained fluorescence model on a synthetic validation split created for this prototype. They are not a clinical validation and they are not an estimate of accuracy on laboratory images."
+}
